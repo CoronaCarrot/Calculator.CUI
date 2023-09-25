@@ -43,17 +43,9 @@ while (true)
             {
                 continue;
             }
-
-            if (key.Key == ConsoleKey.OemPeriod)
+            else if (key.Key == ConsoleKey.OemPeriod && (calcText.ToLower().Contains('.') || calcIndex == 0))
             {
-                if (calcText.ToLower().Contains('.'))
-                {
-                    continue;
-                }
-                else if (calcIndex == 0)
-                {
-                    continue;
-                }
+                continue;
             }
 
             int i;
@@ -88,7 +80,6 @@ while (true)
     }
     else
     {
-        Console.WriteLine("test");
         if (key.Key == ConsoleKey.Backspace)
         {
             if (calcIndex > 0)
