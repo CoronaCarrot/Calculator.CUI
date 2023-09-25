@@ -6,6 +6,8 @@ int currentValue;
 int calcIndex;
 string calcText = "";
 string calcActive = "";
+float numOne;
+float numTwo;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -33,7 +35,7 @@ while (true)
     Console.WriteLine(calcBase);
 
     key = Console.ReadKey(true);
-    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter || (key.Key == ConsoleKey.OemPlus && key.Modifiers != ConsoleModifiers.Shift))
     {
         if (calcIndex < 17) {
 
@@ -64,15 +66,36 @@ while (true)
             else if (key.Key == ConsoleKey.Add || ((key.Modifiers & ConsoleModifiers.Shift) != 0 && key.Key == ConsoleKey.OemPlus))
             {
                 calcActive = "add";
+
+            }
+            else if (key.Key == ConsoleKey.Subtract || key.Key == ConsoleKey.OemMinus)
+            {
+                calcActive = "minus";
+            }
+            else if (key.Key == ConsoleKey.Multiply || ((key.Modifiers & ConsoleModifiers.Shift) != 0 && key.Key == ConsoleKey.D8) || key.Key == ConsoleKey.X)
+            {
+                calcActive = "times";
+            }
+            else if (key.Key == ConsoleKey.Divide || key.Key == ConsoleKey.Oem2)
+            {
+                calcActive = "divide";
             }
         }
     }
     else
     {
-        if (calcIndex > 0)
+        Console.WriteLine("test");
+        if (key.Key == ConsoleKey.Backspace)
         {
-            calcText = calcText.Remove(calcText.Length - 1);
-            calcIndex -= 1;
+            if (calcIndex > 0)
+            {
+                calcText = calcText.Remove(calcText.Length - 1);
+                calcIndex -= 1;
+            }
+        }
+        else
+        {
+            calcActive = "";
         }
     }
 
