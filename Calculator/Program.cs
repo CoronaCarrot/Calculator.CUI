@@ -50,6 +50,10 @@ while (true)
                 {
                     continue;
                 }
+                else if (calcIndex == 0)
+                {
+                    continue;
+                }
             }
 
             int i;
