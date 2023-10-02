@@ -18,6 +18,8 @@ bool equalizer = false;
 bool allCancel = true;
 
 Console.OutputEncoding = Encoding.UTF8;
+Console.CursorVisible = false;
+
 
 calcIndex = 0;
 
