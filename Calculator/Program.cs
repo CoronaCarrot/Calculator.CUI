@@ -1,7 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
-bool debugMode = true;
+bool debugMode = false;
 
 ConsoleKeyInfo key;
 int calcIndex;
