@@ -1,7 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
-bool debugMode = false;
+bool debugMode = true;
 
 ConsoleKeyInfo key;
 int calcIndex;
@@ -15,6 +15,7 @@ double numTwo = 0;
 double numAns = 0;
 
 bool equalizer = false;
+bool allCancel = true;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -38,6 +39,7 @@ while (true)
 │double numAns = {numAns}                                                                       
 │
 │bool equalizer = {equalizer}   
+│bool allCancel = {allCancel}            
 │
 ╰┤" : "";
 
@@ -49,7 +51,7 @@ while (true)
 │ ╭───┬───┬───╮ ╭───╮ │   -  | Subtract
 │ │ 7 │ 8 │ 9 │ │ {(calcActive == "+" ? "\x1b[0;33m" : "")}+[0m │ │   x  | Times
 │ ├───┼───┼───┤ ├───┤ │   /  | divide
-│ │ 4 │ 5 │ 6 │ │ {(calcActive == "-" ? "\x1b[0;33m" : "")}-[0m │ │   C  | Cancel/CancelAll
+│ │ 4 │ 5 │ 6 │ │ {(calcActive == "-" ? "\x1b[0;33m" : "")}-[0m │ │   C  | {(allCancel ? "CancelAll" : "Cancel")}                                                            
 │ ├───┼───┼───┤ ├───┤ │
 │ │ 1 │ 2 │ 3 │ │ {(calcActive == "x" ? "\x1b[0;33m" : "")}x[0m │ │
 │ ├───┼───┼───┤ ├───┤ │
@@ -61,7 +63,7 @@ while (true)
     Console.WriteLine(calcBase);
 
     key = Console.ReadKey(true);
-    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter && !(key.Key == ConsoleKey.OemPlus && key.Modifiers == 0))
+    if (key.Key != ConsoleKey.C && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter && !(key.Key == ConsoleKey.OemPlus && key.Modifiers == 0))
     {
         if (!(calcIndex >= 17 && calcActive == ""))
         {
@@ -78,6 +80,7 @@ while (true)
             int i;
             if (int.TryParse(key.KeyChar.ToString(), out i))
             {
+                allCancel = false;
                 if (equalizer)
                 {
                     calcText = "";
@@ -133,6 +136,26 @@ while (true)
                 calcIndex -= 1;
             }
         }
+        else if (key.Key == ConsoleKey.C)
+        {
+            if (allCancel)
+            {
+                calcActive = "";
+                calcPrep = "";
+                numTemp = "none";
+
+                numOne = 0;
+                numTwo = 0;
+                numAns = 0;
+            }
+            else
+            {
+                allCancel = true;
+            }
+            calcText = "";
+            calcIndex = 0;
+            calcActive = "";
+        }
         else
         {
             equalizer = true;
@@ -180,6 +203,7 @@ while (true)
         numOne = 0;
         numTwo = 0;
         numAns = 0;
+        allCancel = true;
     }
 
 }
